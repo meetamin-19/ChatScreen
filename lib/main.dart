@@ -32,27 +32,42 @@ class MyHomePage extends StatefulWidget {
 // Color(0xff141414)
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool check = true;
+  final FocusNode _focus = FocusNode();
+  final _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _focus.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _focus.removeListener(_onFocusChange);
+    _focus.dispose();
+  }
+
+  void _onFocusChange() {
+    check = !check;
+    debugPrint("Focus: ${_focus.hasFocus.toString()}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
         body: CustomScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           slivers: [
             SliverAppBar(
               backgroundColor: Colors.black,
               collapsedHeight: 171,
-              // backgroundColor: Colors.,
-              // pinned: true,
               floating: true,
-              // title: const Text("Chat"),
-              // centerTitle: true,
-              // leading:
-              expandedHeight: 151,
-
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(
-                  // mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
                       // padding: EdgeInsets.only(top: 20),
@@ -91,18 +106,20 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                          left: 25, right: 25, top: 10, bottom: 0),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 25, right: 25, top: 20),
                       child: TextField(
-                        decoration: InputDecoration(
+                        focusNode: _focus,
+                        controller: _searchController,
+                        decoration: const InputDecoration(
                           hintText: "Search",
                           hintStyle: TextStyle(color: Colors.white),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
                           focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)),
+                              borderSide: BorderSide(color: Colors.grey)),
                           suffixIcon: Icon(
                             Icons.search,
                             color: Colors.white,
@@ -118,6 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+            SliverToBoxAdapter(
+              child: SizedBox(height: 10,)
+            ),
             SliverAppBar(
               backgroundColor: Colors.black,
               pinned: true,
@@ -129,11 +149,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 70,
-                        width: 70,
-                        decoration: const BoxDecoration(
-                            color: Colors.grey, shape: BoxShape.circle),
+                      return Stack(
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              height: 70,
+                              width: 70,
+                              decoration: const BoxDecoration(
+                                  color: Colors.grey, shape: BoxShape.circle),
+                            ),
+                          ),
+                          Positioned(
+                            right: 6,
+                            top: 6,
+                            child: Container(
+                              height: 10,
+                              width: 10,
+                              decoration:BoxDecoration(color: Colors.green,shape: BoxShape.circle),
+                            ),
+                          )
+                        ],
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
@@ -145,16 +181,49 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+            SliverToBoxAdapter(
+              child: SizedBox(height: 20,),
+            ),
             SliverList(delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return Card(
-                  color: Colors.black,
-                  child: SizedBox(
-                    height: 100,
-                    // width: double.infinity,
-                    child: ListTile(
-                    ),
-                  ));
+                return InkWell(
+                  onTap: () { },
+                  child: Card(
+                    color: Colors.black,
+                    child: SizedBox(
+                      height: 80,
+                      // width: double.infinity,
+                      child: Container(
+                        child:Row(
+                          children: [
+                            Expanded(flex: 1,child: Container(
+                              decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.grey),
+                              height:56,
+                              width: 56,
+                              // color: Colors.grey,
+                            )),
+                            SizedBox(width: 10,),
+                            Expanded(flex: 6,child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
+                                        Text("Paridhi_14",style: TextStyle(color: Colors.white,fontSize: 16),),
+                                        Text("50 min",style: TextStyle(color: Colors.white,fontSize: 14),)
+                                      ],),
+                                      SizedBox(height: 5,),
+                                      Text("Hi There Heloo ......",style: TextStyle(color: Colors.white,fontSize: 13),),
+                                    ],
+                                  ),
+                            ),)
+                          ],
+
+                        )
+                      ),
+                    )),
+                );
               },
             ))
           ],
