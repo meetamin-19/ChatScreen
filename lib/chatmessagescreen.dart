@@ -90,21 +90,25 @@ class _ChatMssgScreenState extends State<ChatMssgScreen> {
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: ListView.builder(
-                      controller: _scrollerController,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.all(10.0),
-                      itemBuilder: (context, index) {
-                        if (index % 2 == 0) {
-                          return sentMessage();
-                        } else {
-                          // This is a received message
-                          return recievedMessage();
-                        }
-                      },
-                      itemCount: 30,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.76,
+                      child: ListView.builder(
+                        controller: _scrollerController,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.all(10.0),
+                        itemBuilder: (context, index) {
+                          if (index % 2 == 0) {
+                            return sentMessage();
+                          } else {
+                            // This is a received message
+                            return recievedMessage();
+                          }
+                        },
+                        itemCount: 30,
+                      ),
                     ),
-                  )
+                  ),
+
                 ])));
   }
 
@@ -140,14 +144,14 @@ class _ChatMssgScreenState extends State<ChatMssgScreen> {
 
   Container sentMessage() {
     return Container(
-        child:
-            Column(children: <Widget>[
+        child: Column(children: <Widget>[
       Align(
         alignment: Alignment.centerRight,
         child: Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: Color(0xff242426), borderRadius: BorderRadius.circular(8.0)),
+              color: Color(0xff242426),
+              borderRadius: BorderRadius.circular(8.0)),
           margin: EdgeInsets.only(right: 10.0),
           child: Text(
             'This ia message bruh aggggfdg aeafbdfgre bzfdgggg',

@@ -109,7 +109,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             itemBuilder: (BuildContext context, int index) {
                               return Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10)),
                                   color: Colors.grey,
@@ -179,7 +179,7 @@ class ProfileScreen extends StatelessWidget {
                             Container(
                               height: 126,
                               width: 126,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.grey),
                             ),
 
