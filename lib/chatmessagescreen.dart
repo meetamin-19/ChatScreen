@@ -9,23 +9,23 @@ class ChatMssgScreen extends StatefulWidget {
 
 class _ChatMssgScreenState extends State<ChatMssgScreen> {
   final _scrollerController = ScrollController();
-
   @override
   Widget build(BuildContext context) {
+    var orientIsPortrait =  MediaQuery.of(context).orientation == Orientation.portrait;
     return SafeArea(
         child: Scaffold(
             backgroundColor: Colors.black,
             body: CustomScrollView(
                 controller: _scrollerController,
                 keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
+                ScrollViewKeyboardDismissBehavior.onDrag,
                 slivers: [
                   SliverAppBar(
                     backgroundColor: Colors.black,
                     pinned: true,
-                    collapsedHeight: 113,
+                    collapsedHeight:orientIsPortrait? 113 : 56,
                     flexibleSpace: Container(
-                      height: 113,
+                      height:orientIsPortrait? 113 : 56,
                       decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(25),
@@ -39,59 +39,77 @@ class _ChatMssgScreenState extends State<ChatMssgScreen> {
                             child: Container(
                                 width: 50,
                                 color: const Color(0xff212122),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.chevron_left,
-                                  size: 40,
+                                  size:orientIsPortrait ? 40 :30,
                                   color: Color(0xffB68B4C),
                                 )),
                           ),
                           Expanded(
                               child: Padding(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.15),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      shape: BoxShape.circle),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                padding: EdgeInsets.only(
+                                    left:orientIsPortrait ? MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width * 0.15: MediaQuery.of(context).size.width *.3)  ,
+                                child: Row(
                                   children: [
-                                    Text(
-                                      "Pariddhi Patel",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 16),
+                                    Container(
+                                      height:
+                                          orientIsPortrait ?
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width * 0.1 : 40,
+                                      width:
+                                          orientIsPortrait ?
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width * 0.1 : 40,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.grey,
+                                          shape: BoxShape.circle),
                                     ),
-                                    SizedBox(
-                                      height: 5,
+                                    const SizedBox(
+                                      width: 10,
                                     ),
-                                    Text(
-                                      "Paridhi Beautician Studio",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      children: const [
+                                        Text(
+                                          "Pariddhi Patel",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "Paridhi Beautician Studio",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ))
+                              ))
                         ],
                       ),
                     ),
                   ),
                   SliverToBoxAdapter(
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.76,
+                      height: orientIsPortrait? MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.76 : MediaQuery.of(context).size.height *0.655,
                       child: ListView.builder(
                         controller: _scrollerController,
                         shrinkWrap: true,
@@ -108,7 +126,53 @@ class _ChatMssgScreenState extends State<ChatMssgScreen> {
                       ),
                     ),
                   ),
-
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      color: Color(0xff242426),
+                      child: Row(
+                        children: [Expanded(flex: 6, child: Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width * .6,
+                          child: TextField(
+                            style: TextStyle(color: Colors.white),
+                            cursorColor: Colors.white,
+                            cursorHeight: 20,
+                            decoration: InputDecoration(
+                              fillColor: Color(0xff19191D),
+                              filled: true,
+                              hintText: "Write Message",
+                              hintStyle: TextStyle(
+                                color: Colors.white
+                              ),
+                              contentPadding: EdgeInsets.all(8),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30)
+                                ),
+                              //   suffixIcon:
+                                suffixIcon:Container(
+                                  padding: EdgeInsets.only(right: 5),
+                                  width: 60,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Transform.rotate(angle: -45,child: const Icon(Icons.attachment_outlined,color: Colors.white,)),
+                                      const Icon(Icons.sentiment_very_satisfied_outlined,color: Colors.white,)
+                                    ],
+                                  ),
+                                ),
+                            ),
+                          ),
+                        )),
+                          Expanded(flex: 1, child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Icon(Icons.send,color: Colors.white,),
+                          ))
+                        ],
+                      ),
+                    ),
+                  )
                 ])));
   }
 
@@ -117,7 +181,7 @@ class _ChatMssgScreenState extends State<ChatMssgScreen> {
       child: Column(
         children: <Widget>[
           Container(
-            child: Text('This is a received ',
+            child: const Text('This is a received ',
                 style: TextStyle(color: Colors.white)),
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -126,7 +190,7 @@ class _ChatMssgScreenState extends State<ChatMssgScreen> {
             margin: EdgeInsets.only(left: 10.0),
           ),
           Container(
-            child: Text(
+            child: const Text(
               "13:30",
               style: TextStyle(
                   color: Colors.grey,
@@ -138,39 +202,39 @@ class _ChatMssgScreenState extends State<ChatMssgScreen> {
         ],
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
-      margin: EdgeInsets.only(bottom: 10.0),
+      margin: const EdgeInsets.only(bottom: 10.0),
     );
   }
 
   Container sentMessage() {
     return Container(
         child: Column(children: <Widget>[
-      Align(
-        alignment: Alignment.centerRight,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: Color(0xff242426),
-              borderRadius: BorderRadius.circular(8.0)),
-          margin: EdgeInsets.only(right: 10.0),
-          child: Text(
-            'This ia message bruh aggggfdg aeafbdfgre bzfdgggg',
-            style: TextStyle(color: Colors.white),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: Color(0xff242426),
+                  borderRadius: BorderRadius.circular(8.0)),
+              margin: EdgeInsets.only(right: 10.0),
+              child: const Text(
+                'This ia message bruh aggggfdg aeafbdfgre bzfdgggg',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ),
-        ),
-      ),
-      Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-        Container(
-          child: Text(
-            "22:30",
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: 10.0,
-                fontStyle: FontStyle.normal),
-          ),
-          margin: EdgeInsets.only(left: 5.0, top: 5.0, bottom: 5.0),
-        )
-      ])
-    ]));
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+            Container(
+              child: const Text(
+                "22:30",
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 10.0,
+                    fontStyle: FontStyle.normal),
+              ),
+              margin: EdgeInsets.only(left: 5.0, top: 5.0, bottom: 5.0),
+            )
+          ])
+        ]));
   }
 }
