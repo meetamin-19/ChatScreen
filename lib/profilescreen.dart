@@ -82,10 +82,10 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       Center(
                         child: ElevatedButton(
-                          child: Padding(
+                          child: const Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: const Text(
+                                EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
                               "Follow",
                               style: TextStyle(fontSize: 21),
                             ),
@@ -97,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 10),
                         height: MediaQuery.of(context).size.height * .5,
                         child: GridView.builder(
                             itemCount: 60,
@@ -128,7 +128,6 @@ class ProfileScreen extends StatelessWidget {
                   top: 20,
                   child: InkWell(
                     onTap: () {
-                      print("cool 1");
                     },
                     child: ClipRRect(
                       borderRadius: const BorderRadius.horizontal(
@@ -146,7 +145,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Padding(
-                    padding: EdgeInsets.only(top: 40),
+                    padding: const EdgeInsets.only(top: 40),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -169,11 +168,11 @@ class ProfileScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 // color: Colors.transparent,
                                   shape: BoxShape.circle,
-                                  gradient: LinearGradient(colors: [
-                                    Color(0xff833AB4),
-                                    Color(0xff7318AF).withOpacity(.91),
-                                    Color(0xffE81111).withOpacity(.81),
-                                    Color(0xffEF9311).withOpacity(.85)
+                                  gradient: LinearGradient(colors:  [
+                                    const Color(0xff833AB4),
+                                    const Color(0xff7318AF).withOpacity(.91),
+                                    const Color(0xffE81111).withOpacity(.81),
+                                    const Color(0xffEF9311).withOpacity(.85)
                                   ])),
                             ),
                             Container(
